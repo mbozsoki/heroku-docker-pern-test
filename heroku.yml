@@ -4,5 +4,5 @@ setup:
       as: DATABASE
 build:
   docker:
-    web_server: ./server/Dockerfile
-    web_client: ./client/Dockerfile
+    web_server: ./server/Dockerfile.server
+    web_client: ./client/Dockerfile.client
