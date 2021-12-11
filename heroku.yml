@@ -1,0 +1,8 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    web_server: ./server/Dockerfile
+    web_client: ./client/Dockerfile
