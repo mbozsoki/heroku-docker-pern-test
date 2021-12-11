@@ -1,0 +1,37 @@
+version: '3'
+services:
+
+  test-app-db:
+    image: "postgres:9.6-alpine"
+    container_name: test-app-db
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB:test-app
+      - POSTGRES_PASSWORD=password
+      - PGDATA:/tmp
+
+  test-app-server:
+    build: ./server
+    container_name: test-app-server
+    restart: always
+    environment:
+      - DB_SERVER=test-app-db
+    ports:
+      - 8080:8080
+    links:
+      - test-app-db
+
+  test-app-client:
+    build: ./client
+    container_name: test-app-client
+    ports:
+      - 80:80
+    links:
+      - test-app-server
+
+volumes:
+  db-data:
